@@ -32,9 +32,11 @@ export class AuthComponent {
     let authObs: Observable<AuthResponseData>;
 
     if (this.isLoginMode) {
-      authObs =  this.authService.signup(email, password);
+      authObs =  this.authService.login(email, password);
+      console.log('isLoginMode -> login -> ' + this.isLoginMode);
     } else {
       authObs = this.authService.signup(email, password);
+      console.log('isLoginMode -> signup -> ' + this.isLoginMode);
       form.reset();
     }
 

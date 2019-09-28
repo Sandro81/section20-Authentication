@@ -38,7 +38,7 @@ export class AuthService {
         email: email,
         password: password,
         returnSecureToken: true
-      });
+      }).pipe(catchError( this.handleError));
   }
 
   private handleError(errorRes: HttpErrorResponse) {
@@ -54,6 +54,7 @@ TOO_MANY_ATTEMPTS_TRY_LATER: We have blocked all requests from this device due t
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(errorMessage);
     }
+    console.log('error Message' + errorRes.error.error.message);
     switch (errorRes.error.error.message) {
       case 'EMAIL_EXISTS':
         errorMessage = 'This email exists already';
