@@ -20,8 +20,7 @@ export interface AuthResponseData {
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  user = new BehaviorSubject()<UserModel>();
-  token: string = null;
+  user = new BehaviorSubject<UserModel>(null);
 
   constructor(private http: HttpClient) {
   }
