@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import {RecipeService} from '../recipes/recipe.service';
 import {Recipe} from '../recipes/recipe.model';
-import {map, tap} from 'rxjs/operators';
+import {exhaust, exhaustMap, map, take, tap} from 'rxjs/operators';
 import {AuthService} from '../auth/auth.service';
 
 @Injectable({providedIn: 'root'})
@@ -23,16 +23,19 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    return this.http.get<Recipe[]>(
-      'https://section20-auth.firebaseio.com/recipes.json')
-      .pipe(map(recipes => {
-          return recipes.map(recipe => {
-            return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
-          });
-        }),
-        tap(recipes  => {
-          this.recipeService.setRecipes(recipes);
-        })
-      );
+    return this.authService.user.pipe(take(1), exhaustMap(user => {
+        return this.http.get<Recipe[]>(
+          'https://section20-auth.firebaseio.com/recipes.json'
+        );
+      }),
+      map(recipes => {
+        return recipes.map(recipe => {
+          return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
+        });
+      }),
+      tap(recipes  => {
+        this.recipeService.setRecipes(recipes);
+      })
+    );
   }
 }
