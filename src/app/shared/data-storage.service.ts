@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 import {RecipeService} from '../recipes/recipe.service';
 import {Recipe} from '../recipes/recipe.model';
@@ -23,14 +23,19 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    return this.authService.user.pipe(take(1), exhaustMap(user => {
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap(user => {
         return this.http.get<Recipe[]>(
-          'https://section20-auth.firebaseio.com/recipes.json'
+          'https://section20-auth.firebaseio.com/recipes.json?auth', {
+            params: new HttpParams().set('auth', user.token)
+          }
         );
       }),
       map(recipes => {
         return recipes.map(recipe => {
-          return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
+          return {...recipe,
+            ingredients: recipe.ingredients ? recipe.ingredients : []};
         });
       }),
       tap(recipes  => {
