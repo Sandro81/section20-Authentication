@@ -6,16 +6,19 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/recipes" style="cursor: pointer">Recipes</a>
+        <a class="nav-link" routerLink="/recipes" style="cursor: pointer" *ngIf="isAuthenticated">Recipes</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/shopping-list" style="cursor: pointer">Shopping List</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/auth" style="cursor: pointer">Authenthicate</a>
+        <a class="nav-link" routerLink="/auth" style="cursor: pointer" *ngIf="!isAuthenticated">Authenthicate</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/auth" style="cursor: pointer" *ngIf="isAuthenticated">Logout</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer" *ngIf="isAuthenticated">
           Manage
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
