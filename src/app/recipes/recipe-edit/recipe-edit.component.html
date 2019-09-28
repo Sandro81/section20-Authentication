@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+        <button
+          type="submit"
+          class="btn btn-success"
+        [disabled]="!recipeForm.valid">Save</button>
+        <button
+          type="submit"
+          class="btn btn-danger"
+        (click)="onCancel()">Cancel</button>
+
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 formControlName="name"
+          >
+        </div>
+        <div class="form-group">
+          <label for="imagePath">Image Url</label>
+          <input type="text"
+                 class="form-control"
+                 id="imagePath"
+                 formControlName="imagePath"
+                 #imagePath
+          >
+        </div>
+        <div class="form-group">
+          <img [src]="imagePath.value" alt="" class="img-responsive">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea type="text"
+                    class="form-control"
+                    id="description"
+                    rows="6"
+                    formControlName="description"
+          > </textarea>
+        </div>
+        <div class="form-group">
+          <div class="container" formArrayName="ingredients">
+            <div class="row"
+                 *ngFor="let ingredientCtrl of getControls(); let i = index"
+                 [formGroupName]="i"
+                 style="margin-top: 10px">
+              <div class="col">
+                <input type="text"
+                       class="form-control"
+                       formControlName="name"
+                >
+              </div>
+              <div class="col">
+                <input type="text"
+                       class="form-control"
+                       formControlName="amount"
+                >
+              </div>
+              <div class="col">
+                <button
+                  type="button"
+                  class="btn btn-outline-warning"
+                (click)="onDeleteIngredient(i)">X</button>
+              </div>
+            </div>
+            <hr>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <button class="btn btn-info"
+                          type="button"
+                          (click)="onAddIngredient()">Add Ingredient</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
