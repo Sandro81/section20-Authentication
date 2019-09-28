@@ -11,7 +11,10 @@ interface AuthResponseData {
   resfreshTocken: string;
   expiresIn: string;
   localId: string;
+  registered?: boolean;
 }
+
+
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -47,7 +50,7 @@ TOO_MANY_ATTEMPTS_TRY_LATER: We have blocked all requests from this device due t
   }
 
   login(email: string, password: string) {
-    this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCsTGkCaNQTVXIDu54N7FrRT84tog-vcds',
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCsTGkCaNQTVXIDu54N7FrRT84tog-vcds',
       {
         email: email,
         password: password,
