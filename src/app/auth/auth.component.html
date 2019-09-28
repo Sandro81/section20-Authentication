@@ -2,7 +2,10 @@
 <div class="container">
   <div class="row">
     <div class="col-sm">
-      <form #authForm="ngForm"(ngSubmit)="onSubmit(authForm)">
+      <div *ngIf="isLoading">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+      <form #authForm="ngForm"(ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
           <input
