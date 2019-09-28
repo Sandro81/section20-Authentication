@@ -32,7 +32,7 @@ export class AuthComponent {
     let authObs: Observable<AuthResponseData>;
 
     if (this.isLoginMode) {
-     authObs =  this.authService.signup(email, password);
+      authObs =  this.authService.signup(email, password);
     } else {
       authObs = this.authService.signup(email, password);
       form.reset();
@@ -49,6 +49,4 @@ export class AuthComponent {
       }
     );
   }
-
-
 }
