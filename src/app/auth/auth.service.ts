@@ -40,7 +40,7 @@ export class AuthService {
             resData.localId,
             resData.idToken,
             +resData.expiresIn);
-      }));
+        }));
   }
 
   login(email: string, password: string) {
@@ -49,12 +49,17 @@ export class AuthService {
         email: email,
         password: password,
         returnSecureToken: true
-      }).pipe(catchError( this.handleError), tap(resData => {
-      this.handleAuthentication(
-        resData.email,
-        resData.localId,
-        resData.idToken,
-        +resData.expiresIn););
+      }).pipe(
+      catchError( this.handleError),
+      tap(resData => {
+          this.handleAuthentication(
+            resData.email,
+            resData.localId,
+            resData.idToken,
+            +resData.expiresIn);
+        }
+      )
+    );
   }
 
   private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
@@ -65,6 +70,7 @@ export class AuthService {
       userId,
       token,
       expirationDate);
+    this.user.next(user);
 
   }
 
