@@ -12,8 +12,8 @@
           <label for="exampleInputPassword1">Password</label>
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-primary">Sign Up</button> |
-        <button type="submit" class="btn btn-outline-warning">Switch to Login</button>
+        <button type="submit" class="btn btn-primary" type="submit">{{ isLoginMode ? 'Login' : 'Sign up' }}</button> |
+        <button type="submit" class="btn btn-outline-warning" (click)="onSwitchMode()">Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}</button>
       </form>
     </div>
   </div>
