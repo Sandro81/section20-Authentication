@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {AuthResponseData, AuthService} from './auth.service';
-import {Observable} from 'rxjs';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { AuthService, AuthResponseData } from './auth.service';
 
 @Component({
   selector: 'app-auth',

@@ -22,20 +22,25 @@ export class DataStorageService {
       });
   }
 
+
+
   fetchRecipes() {
-    return this.http.get<Recipe[]>(
-          'https://section20-auth.firebaseio.com/recipes.json'
-        )
-          .pipe(map(recipes => {
-            return recipes.map(recipe => {
-              return {...recipe,
-                ingredients: recipe.ingredients ? recipe.ingredients : []
-              };
-            });
-          }),
-          tap(recipes  => {
-            this.recipeService.setRecipes(recipes);
-          })
-        );
-      }
+    return this.http
+      .get<Recipe[]>(
+        'https://section20-auth.firebaseio.com/recipes.json'
+      )
+      .pipe(
+        map(recipes => {
+          return recipes.map(recipe => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          });
+        }),
+        tap(recipes => {
+          this.recipeService.setRecipes(recipes);
+        })
+      );
   }
+}
