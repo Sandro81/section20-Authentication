@@ -1,8 +1,10 @@
-export class UserModel {
-  constructor(public email: string,
-              public id: string,
-              private _token: string,
-              private _tokenExpirationDate: Date) {}
+export class User {
+  constructor(
+    public email: string,
+    public id: string,
+    private _token: string,
+    private _tokenExpirationDate: Date
+  ) {}
 
   get token() {
     if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
@@ -10,5 +12,4 @@ export class UserModel {
     }
     return this._token;
   }
-
 }
